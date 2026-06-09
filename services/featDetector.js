@@ -6,50 +6,48 @@ const titlePatterns = [
 ];
 
 export function detectCollaborators(title, description) {
-  const collaborators = new Set();
-
-
+  // const collaborators = new Set();
 
   const simple_regex = /(?:^|\s)@([A-Za-z0-9_]+)(?=\s|$)/g;
 
-  const title_candidate = [...title.matchAll(simple_regex)].map(m => m[0])
+  const title_candidate = [...title.matchAll(simple_regex)].map(m => m[1])
   const description_candidate = [...description.matchAll(simple_regex)].map(m => m[1])
 
-  const candidate = [...title_candidate, ...description_candidate]
-  
-  return candidate
+  const candidate = new Set([...title_candidate, ...description_candidate])
+   
+  return [...candidate]
 
 
-  for (const regex of titlePatterns) {
-    let match;
+  // for (const regex of titlePatterns) {
+  //   let match;
 
-    while ((match = regex.exec(title)) !== null) {
-      collaborators.add(
-        match[1].trim()
-      );
-    }
-  }
+  //   while ((match = regex.exec(title)) !== null) {
+  //     collaborators.add(
+  //       match[1].trim()
+  //     );
+  //   }
+  // }
 
-  const mentionRegex = /@([a-zA-Z0-9_]+)/g;
+  // const mentionRegex = /@([a-zA-Z0-9_]+)/g;
 
-  let mention;
+  // let mention;
 
-  while (
-    (mention = mentionRegex.exec(description)) !== null
-  ) {
-    collaborators.add(mention[1]);
-  }
+  // while (
+  //   (mention = mentionRegex.exec(description)) !== null
+  // ) {
+  //   collaborators.add(mention[1]);
+  // }
 
-  const youtubeLinks =
-    /youtube\.com\/@([a-zA-Z0-9_-]+)/gi;
+  // const youtubeLinks =
+  //   /youtube\.com\/@([a-zA-Z0-9_-]+)/gi;
 
-  let link;
+  // let link;
 
-  while (
-    (link = youtubeLinks.exec(description)) !== null
-  ) {
-    collaborators.add(link[1]);
-  }
+  // while (
+  //   (link = youtubeLinks.exec(description)) !== null
+  // ) {
+  //   collaborators.add(link[1]);
+  // }
 
-  return [...collaborators];
+  // return [...collaborators];
 }
