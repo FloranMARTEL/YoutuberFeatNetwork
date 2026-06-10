@@ -15,7 +15,7 @@ export function detectCollaborators(title, description) {
 
   const candidate = new Set([...title_candidate, ...description_candidate])
    
-  return [...candidate]
+  return [...candidate].map(gest => gest.toLowerCase())
 
 
   // for (const regex of titlePatterns) {

@@ -58,6 +58,7 @@ export default class YoutubeAPI {
 
       if (data.items == undefined){
         console.log(data)
+        return []
       }
 
       data.items.forEach(element => {
@@ -75,6 +76,10 @@ export default class YoutubeAPI {
       const videos_detail = await YoutubeAPI.get_all_videos_detail(data_maped.map((elem) => elem.video_id))
 
       const data_filtred = data_maped.filter((elem, index) => {
+        if (videos_detail[index] == undefined){
+          return false
+        }
+        
         return duration_to_seconds(videos_detail[index].contentDetails.duration) > 3 * 60
       })
 
@@ -93,6 +98,10 @@ export default class YoutubeAPI {
 
     const responce = await fetch(`${BaseURL}videos?${KEY}&part=contentDetails&id=${str_video_id}`)
     const data = await responce.json()
+
+    if (data.items == undefined){
+      return []
+    }
 
     return data.items
 
